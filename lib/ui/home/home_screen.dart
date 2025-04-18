@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:islami_c14/style/ColorManager.dart';
-import 'package:islami_c14/ui/home/tabs/HadethTab.dart';
+import 'package:islami_c14/ui/home/tabs/hadeth_tab/HadethTab.dart';
 import 'package:islami_c14/ui/home/tabs/QuranTab.dart';
 import 'package:islami_c14/ui/home/tabs/RadioTab.dart';
 import 'package:islami_c14/ui/home/tabs/SebhaTab.dart';
