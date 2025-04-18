@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:islami_c14/style/PrefsManager.dart';
 import 'package:islami_c14/ui/hadeth_details/hadeth_details_screen.dart';
 import 'package:islami_c14/ui/home/home_screen.dart';
 import 'package:islami_c14/ui/quran_details/quran_details_screen.dart';
 
-void main() {
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await PrefsManager.init();
   runApp(const MyApp());
 }
 

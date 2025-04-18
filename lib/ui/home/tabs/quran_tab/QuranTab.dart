@@ -5,12 +5,29 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:islami_c14/style/AppConstants.dart';
 import 'package:islami_c14/style/ColorManager.dart';
 import 'package:islami_c14/style/Methods.dart';
+import 'package:islami_c14/style/PrefsManager.dart';
 import 'package:islami_c14/ui/home/tabs/quran_tab/widgets/RecentlyItem.dart';
 import 'package:islami_c14/ui/home/tabs/quran_tab/widgets/SuraItem.dart';
 
-class QuranTab extends StatelessWidget {
+import '../../../../model/SuraModel.dart';
+
+class QuranTab extends StatefulWidget {
   const QuranTab({super.key});
 
+  @override
+  State<QuranTab> createState() => _QuranTabState();
+}
+
+class _QuranTabState extends State<QuranTab> {
+  String searchText = "";
+  List<SuraModel> searchSurasList = [];
+  List<SuraModel> mostRecently = [];
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    mostRecently = PrefsManager.getMostRecently();
+  }
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
@@ -36,6 +53,12 @@ class QuranTab extends StatelessWidget {
             SizedBox(height: 21,),
             TextField(
               cursorColor: ColorManager.primary,
+              onChanged: (value){
+                setState(() {
+                  searchText = value;
+                  searchSura();
+                });
+              },
               style:TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.w700,
@@ -70,41 +93,75 @@ class QuranTab extends StatelessWidget {
                 )
               ),
             ),
-            SizedBox(height: 20,),
-            Align(
-              alignment: AlignmentDirectional.centerStart,
-              child: Text("Most Recently ",
-                style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w700,
-                color: Colors.white
-              ),),
-            ),
-            SizedBox(height: 10,),
-            Container(
-              height: calculateHeight(150, screenHeight),
-              child: ListView.separated(
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder:(context, index) => RecentlyItem(),
-                  separatorBuilder: (context, index) => SizedBox(width: 10,),
-                  itemCount: 10
+            Visibility(
+              visible: searchText.isEmpty,
+              child: Column(
+                children: [
+                  SizedBox(height: 20,),
+                  Align(
+                    alignment: AlignmentDirectional.centerStart,
+                    child: Text("Most Recently ",
+                      style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.white
+                      ),),
+                  ),
+                  SizedBox(height: 10,),
+                  Container(
+                    height: calculateHeight(150, screenHeight),
+                    child: mostRecently.isEmpty
+                        ?const Center(
+                          child: Text("No Recently items",style: TextStyle(
+                          color: ColorManager.primary,
+                          fontSize: 20,
+                          fontWeight: FontWeight.w700
+                                              ),),
+                        )
+                        :ListView.separated(
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder:(context, index) => RecentlyItem(
+                          mostRecently[index]
+                        ),
+                        separatorBuilder: (context, index) => SizedBox(width: 10,),
+                        itemCount: mostRecently.length
+                    ),
+                  ),
+                  SizedBox(height: 10,),
+                  Align(
+                    alignment: AlignmentDirectional.centerStart,
+                    child: Text("Suras List",
+                      style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.white
+                      ),),
+                  ),
+                ],
               ),
-            ),
-            SizedBox(height: 10,),
-            Align(
-              alignment: AlignmentDirectional.centerStart,
-              child: Text("Suras List",
-                style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w700,
-                    color: Colors.white
-                ),),
             ),
             SizedBox(height: 10,),
             Expanded(
               child: ListView.separated(
                   itemBuilder: (context, index) => SuraItem(
-                    AppConstants.surasList[index]
+                      suraModel:searchText.isNotEmpty
+                          ?searchSurasList[index]
+                          :AppConstants.surasList[index],
+                      onPress:(){
+                        SuraModel newSura = searchText.isNotEmpty
+                            ?searchSurasList[index]
+                            :AppConstants.surasList[index];
+                        if(!mostRecently.contains(newSura)){
+                          mostRecently.insert(0, newSura);
+                        }else{
+                          mostRecently.remove(newSura);
+                          mostRecently.insert(0, newSura);
+                        }
+                        PrefsManager.saveMostRecently(mostRecently);
+                        setState(() {
+
+                        });
+                      }
                   ),
                   separatorBuilder: (context, index) => Padding(
                     padding: const EdgeInsets.symmetric(
@@ -114,12 +171,25 @@ class QuranTab extends StatelessWidget {
                       color: Colors.white,
                     ),
                   ),
-                  itemCount: AppConstants.surasList.length
+                  itemCount: searchText.isNotEmpty
+                      ?searchSurasList.length
+                      :AppConstants.surasList.length
               ),
             )
           ],
         ),
       ),
     );
+  }
+  searchSura(){
+    if(searchText.isNotEmpty){
+      searchSurasList = [];
+      for(int i=0;i<AppConstants.surasList.length;i++){
+        if(AppConstants.surasList[i].suraNameAr.contains(searchText)
+        || AppConstants.surasList[i].suraNameEn.contains(searchText) ){
+          searchSurasList.add(AppConstants.surasList[i]);
+        }
+      }
+    }
   }
 }

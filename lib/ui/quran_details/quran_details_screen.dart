@@ -49,13 +49,15 @@ class _QuranDetailsScreenState extends State<QuranDetailsScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Image.asset("assets/images/left_corner.png"),
+                      Image.asset("assets/images/left_corner.png",height: 92,
+                        width: 92,),
                       Text(suraModel.suraNameAr,style: TextStyle(
                           color: ColorManager.primary,
                           fontSize: 24,
                           fontWeight: FontWeight.w700
                       ),),
-                      Image.asset("assets/images/right_corner.png"),
+                      Image.asset("assets/images/right_corner.png",height: 92,
+                        width: 92,),
                     ],
                   ),
                   Expanded(

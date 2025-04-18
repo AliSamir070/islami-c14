@@ -7,7 +7,8 @@ import 'package:islami_c14/ui/quran_details/quran_details_screen.dart';
 
 class SuraItem extends StatelessWidget {
   SuraModel suraModel;
-  SuraItem(this.suraModel);
+  void Function() onPress;
+  SuraItem({required this.suraModel,required this.onPress});
 
   @override
   Widget build(BuildContext context) {
@@ -15,6 +16,7 @@ class SuraItem extends StatelessWidget {
     double screenWidth = MediaQuery.of(context).size.width;
     return InkWell(
       onTap: (){
+        onPress();
         Navigator.pushNamed(context, QuranDetailsScreen.routeName,arguments: suraModel);
       },
       child: Row(
