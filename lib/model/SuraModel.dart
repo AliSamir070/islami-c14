@@ -1,3 +1,4 @@
+// this sura model class represent an sura with its details
 class SuraModel{
   String suraNameEn;
   String suraNameAr;
