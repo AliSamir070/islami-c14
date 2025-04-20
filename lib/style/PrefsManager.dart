@@ -23,4 +23,11 @@ class PrefsManager{
     }
     return mostRecent;
   }
+
+  static Future<void> saveOnBoardingFirstTime()async {
+    await prefs.setBool("isFirstTime", false);
+  }
+  static bool? getIfFirstTime(){
+    return prefs.getBool("isFirstTime");
+  }
 }
