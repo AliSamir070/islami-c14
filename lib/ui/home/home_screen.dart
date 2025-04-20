@@ -4,7 +4,7 @@ import 'package:islami_c14/style/ColorManager.dart';
 import 'package:islami_c14/ui/home/tabs/hadeth_tab/HadethTab.dart';
 import 'package:islami_c14/ui/home/tabs/quran_tab/QuranTab.dart';
 import 'package:islami_c14/ui/home/tabs/radio_tab/RadioTab.dart';
-import 'package:islami_c14/ui/home/tabs/sebha_tab/SebhaTab.dart';
+import 'package:islami_c14/ui/home/tabs/sebha_tab/presentation/views/sebha_tab.dart';
 import 'package:islami_c14/ui/home/tabs/time_tab/TimeTab.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -17,11 +17,11 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int selected = 0;
   List<Widget> tabs = [
-    QuranTab(),
+    const QuranTab(),
     HadethTab(),
-    SebhaTab(),
-    RadioTab(),
-    TimeTab()
+    const SebhaTab(),
+    const RadioTab(),
+    const TimeTab()
   ];
   @override
   Widget build(BuildContext context) {
