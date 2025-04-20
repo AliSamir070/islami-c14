@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:islami_c14/style/ColorManager.dart';
 import 'package:islami_c14/style/PrefsManager.dart';
 import 'package:islami_c14/ui/hadeth_details/hadeth_details_screen.dart';
 import 'package:islami_c14/ui/home/home_screen.dart';
+import 'package:islami_c14/ui/on_boarding/presentation/views_model/on_boarding_cubit.dart';
 import 'package:islami_c14/ui/quran_details/quran_details_screen.dart';
+
+import 'ui/on_boarding/presentation/views/on_boarding_view.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,9 +25,11 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        fontFamily: "Janna LT",
+        scaffoldBackgroundColor: ColorManager.blackColor,
         navigationBarTheme: NavigationBarThemeData(
           labelTextStyle: MaterialStateTextStyle.resolveWith(
-                  (states) => TextStyle(
+                  (states) => const TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.w700
                   )
@@ -33,10 +40,16 @@ class MyApp extends StatelessWidget {
       ),
       routes: {
         HomeScreen.routeName:(_)=>HomeScreen(),
-        HadethDetailsScreen.routeName:(_)=>HadethDetailsScreen(),
-        QuranDetailsScreen.routeName:(_)=>QuranDetailsScreen()
+        HadethDetailsScreen.routeName:(_)=>const HadethDetailsScreen(),
+        QuranDetailsScreen.routeName:(_)=>QuranDetailsScreen(),
+        OnBoardingView.routeName: (_) => BlocProvider<OnBoardingCubit>(
+            create: (context) => OnBoardingCubit(),
+            child: const OnBoardingView()
+        ),
       },
-      initialRoute: HomeScreen.routeName,
+      initialRoute: PrefsManager.getIfFirstTime() != null?
+      HomeScreen.routeName:
+      OnBoardingView.routeName,
     );
   }
 }
