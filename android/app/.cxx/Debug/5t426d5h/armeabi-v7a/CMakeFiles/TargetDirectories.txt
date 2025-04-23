@@ -1,0 +1,2 @@
+C:/abdo/code/fltr/islami-c14_abdo/android/app/.cxx/Debug/5t426d5h/armeabi-v7a/CMakeFiles/edit_cache.dir
+C:/abdo/code/fltr/islami-c14_abdo/android/app/.cxx/Debug/5t426d5h/armeabi-v7a/CMakeFiles/rebuild_cache.dir
