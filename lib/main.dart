@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:islami_c14/ui/home/home_screen.dart';
+import 'package:islami_c14/ui/home/tabs/SebhaTab.dart';
+import 'package:islami_c14/ui/onboarding/onboarding.dart';
+
 
 void main() {
   runApp(const MyApp());
@@ -27,9 +30,11 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       routes: {
-        HomeScreen.routeName:(_)=>HomeScreen()
+        HomeScreen.routeName:(_)=>HomeScreen(),
+        OnBoardingScreen.routeName:(_)=>OnBoardingScreen(),
+        SebhaTab.routeName:(_)=>SebhaTab(),
       },
-      initialRoute: HomeScreen.routeName,
+      initialRoute: OnBoardingScreen.routeName,
     );
   }
 }
