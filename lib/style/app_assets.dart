@@ -7,4 +7,5 @@ class AppAssets {
   static const String onBoarding5 = 'assets/images/on_boarding5.png';
   static const String sebhaHead = 'assets/images/sebha_head.png';
   static const String sebhaBody = 'assets/images/sebha_body.png';
+  static const String sebhaTabBackground = 'assets/images/sebha_back.png';
 }
