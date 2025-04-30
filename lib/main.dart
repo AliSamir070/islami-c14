@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:islami_c14/style/PrefsManager.dart';
 import 'package:islami_c14/ui/hadeth_details/hadeth_details_screen.dart';
 import 'package:islami_c14/ui/home/home_screen.dart';
+import 'package:islami_c14/ui/home/on_boarding_screen/on_boarding_screen.dart';
 import 'package:islami_c14/ui/quran_details/quran_details_screen.dart';
 
 void main() async{
@@ -34,9 +35,10 @@ class MyApp extends StatelessWidget {
       routes: {
         HomeScreen.routeName:(_)=>HomeScreen(),
         HadethDetailsScreen.routeName:(_)=>HadethDetailsScreen(),
-        QuranDetailsScreen.routeName:(_)=>QuranDetailsScreen()
+        QuranDetailsScreen.routeName:(_)=>QuranDetailsScreen(),
+        OnBoardingScreen.routeName:(_)=>OnBoardingScreen(),
       },
-      initialRoute: HomeScreen.routeName,
+      initialRoute: OnBoardingScreen.routeName,
     );
   }
 }
